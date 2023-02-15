@@ -1,0 +1,27 @@
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+
+.error {
+  color: red;
+}
+
+.Lable::after {
+  color: red;
+  border-style: none;
+  content: '*';
+}
+
+::ng-deep ngx-intl-tel-input .iti {
+  width: 100% !important;
+}
+
+ngx-intl-tel-input.ng-invalid.ng-touched {
+  border: 1px solid red;
+
+}
