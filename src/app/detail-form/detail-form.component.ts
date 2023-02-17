@@ -1,27 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {
-  CountryISO,
-  SearchCountryField,
-} from "ngx-intl-tel-input";
+import {CountryISO, SearchCountryField,} from "ngx-intl-tel-input";
 import {FormDetailService} from "./form-detail.service";
 import {Router} from "@angular/router";
+import {DetailDataStorageService} from "../shaird/detailDataStorage.service";
 
 @Component({
   selector: 'app-detail-form',
   templateUrl: './detail-form.component.html',
-  styleUrls: ['./detail-form.component.css']
+  styleUrls: ['./detail-form.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailFormComponent implements OnInit {
 
   constructor(private readonly router: Router,
-              private readonly detailServer: FormDetailService) {
+              private readonly detailServer: FormDetailService,
+              private detailDataService : DetailDataStorageService,
+              private DetailDataStorageService:DetailDataStorageService) {
   }
 
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   detailForms!: FormGroup;
-  name!: string;
+  name: string;
   dateOfBirth !: any
   date: any
 
@@ -33,7 +34,7 @@ export class DetailFormComponent implements OnInit {
     'Graduate School',
     'Other'
   ];
-  genders = ['male', 'female', "other"];
+  genders = ['Male', 'Female', "Other"];
 
   hobbies = [
     {id: 1, hobbyName: "Reading", isSelected: false},
@@ -75,10 +76,12 @@ export class DetailFormComponent implements OnInit {
 
   submitDetails() {
     const detail = this.detailForms.value;
+    this.DetailDataStorageService.postData(detail)
     if (this.detailForms.valid && this.dateOfBirth >= 20) {
       this.detailServer.Detail = detail;
       this.detailServer.hobby = this.selectedHobby
       this.router.navigate(['/detail']);
+      return this.addData(detail)
     } else {
       this.validForm = true;
     }
@@ -92,4 +95,15 @@ export class DetailFormComponent implements OnInit {
   clearForm(): void {
     this.loadForm()
   }
+
+  // fetchData() {
+  //   this.detailDataService.fetch()
+  // }
+
+
+
+  addData(detail){
+   return detail;
+  }
+
 }

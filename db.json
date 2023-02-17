@@ -1,0 +1,21 @@
+{
+  "detail":
+    {
+      "name": "Milan",
+      "date": "2002-02-07T18:30:00.000Z",
+      "mobileNumber": {
+        "number": "9639639632",
+        "internationalNumber": "+91 96396 39632",
+        "nationalNumber": "096396 39632",
+        "e164Number": "+919639639632",
+        "countryCode": "IN",
+        "dialCode": "+91"
+      },
+      "instituteName": "V.V.P",
+      "education": "High School",
+      "selectedHobby": true,
+      "gender": "Male",
+      "address": "Rajkot",
+      "id": 3
+    }
+}

@@ -1,35 +1,34 @@
-
 <div class="flex min-h-min items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="w-full max-w-md space-y-8">
     <div>
       <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
     </div>
-    <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()"  [formGroup]="loginForm" >
-      <input type="hidden" name="remember" value="true">
-      <div class="-space-y-px rounded-md shadow-sm">
-        <div>
-          <label for="username" class="sr-only">Email address</label>
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            placeholder="User Name"
-            formControlName='userEmail'
-            name="username"
-            class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Email address">
-        </div>
-        <div>
-          <label for="password" class="sr-only">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            placeholder="Password"
-            id="password"
-            formControlName='password'
-            name="password"
-            class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Password">
-        </div>
-      </div>
+    <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+
+      <mat-form-field class="w-full h-0"
+                      appearance="outline">
+        <input
+          type="email"
+          id="username"
+          formControlName='userEmail'
+          name="username"
+          matInput
+          placeholder="Enter your Email id">
+      </mat-form-field>
+      <mat-form-field class="w-full"
+                      appearance="outline">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          id="password"
+          formControlName='password'
+          name="password"
+          matInput
+          placeholder="Enter Password">
+      </mat-form-field>
+
+
       <div>
         <button
           [disabled]="!loginForm.valid"
@@ -41,3 +40,4 @@
     </form>
   </div>
 </div>
+

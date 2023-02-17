@@ -1,64 +1,46 @@
 <div class="flex min-h-0 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="w-full max-w-md space-y-8">
     <h1>Detail Form</h1>
+
+<!--    <button (click)="fetchData()">Get Data</button>-->
+
+
     <form class="mt-8 space-y-6" (ngSubmit)="submitDetails()" [formGroup]="detailForms">
-      <div>
-        <label class="block">
-          <span class="block text-sm font-medium text-slate-700">Name:</span>
-          <input type="text"
-                 id="name"
-                 name="name"
-                 formControlName="name"
-                 class="relative block w-full appearance-none rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                 placeholder="Enter Your Name">
-        </label>
-      </div>
-<!--      <div *ngIf="detailForms.get('name').touched">-->
 
-<!--      </div>-->
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700 text-lg ">Name:</span>
+        <div class="">
+          <mat-form-field class="w-full h-0"
+                          appearance="outline">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              formControlName="name"
+              matInput
+              placeholder="Enter Your Name">
+          </mat-form-field>
+        </div>
+      </label>
 
-      <!--      <div>-->
-      <!--        <mat-form-field-->
-      <!--          class="relative block w-full appearance-none rounded-none rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"-->
-      <!--          appearance="fill">-->
-      <!--          <input-->
-      <!--            placeholder="MM/DD/YYYY"-->
-      <!--            matInput [matDatepicker]="picker">-->
-      <!--          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>-->
-      <!--          <mat-datepicker #picker></mat-datepicker>-->
-      <!--        </mat-form-field>-->
-      <!--      </div>-->
-      <div>
-        <label class="block">
-          <span class="block text-sm font-medium text-slate-700">Date Of Birth:</span>
-          <input type="date"
-                 id="dateOfBirth"
-                 name="date"
-                 formControlName="date"
-                 class="relative block w-full appearance-none  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-        </label>
-      </div>
-
-<!--      <div-->
-<!--      *ngIf="detailForms.get('date').valid">-->
-
-<!--      </div>-->
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700 text-lg ">Email ID</span>
+        <mat-form-field class="w-full h-0"
+                        appearance="outline">
+          <input
+            type="email"
+            id="Email"
+            name="email"
+            formControlName="email"
+            matInput
+            placeholder="Enter Your email">
+        </mat-form-field>
+      </label>
 
       <div>
-        <label class="block">
-          <span class="block text-sm font-medium text-slate-700">Email ID:</span>
-          <input type="email"
-                 id="Email"
-                 name="email"
-                 formControlName="email"
-                 class="relative block w-full appearance-none  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                >
-        </label>
-      </div>
-
-      <div>
+        <label>Mobile NUmber</label>
         <ngx-intl-tel-input
-          class="relative block w-full appearance-none  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+          class="relative block w-full appearance-none h-10  rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm w-full"
           [preferredCountries]="[CountryISO.India]"
           [enableAutoCountrySelect]="true"
           [enablePlaceholder]="true"
@@ -69,74 +51,102 @@
           id="phone"
           name="mobileNumber" formControlName="mobileNumber"
         >
+          <input>
         </ngx-intl-tel-input>
       </div>
 
 
-      <div>
-        <label class="block">
-          <span class="block text-sm font-medium text-slate-700">Name of institute or school</span>
-          <input type="text"
-                 id="instituteName"
-                 name="instituteName"
-                 formControlName="instituteName"
-                 class="relative block w-full appearance-none  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                 placeholder="Enter Your institute or school Name">
-        </label>
-      </div>
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700">Date Of Birth:</span>
+        <mat-form-field
+          class="w-full h-0"
+          appearance="outline">
+          <input
+            id="dateOfBirth"
+            placeholder="MM/DD/YYYY"
+            formControlName="date"
+            matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-      <div>
-        <label class="block" for="education">Education</label>
-        <select
-          class="relative block w-full appearance-none  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          id="education"
-          formControlName='education'
-          name="education">
-          <option *ngFor="let option of educationOptions"
-                  [value]="option">{{ option }}
-          </option>
-        </select>
-      </div>
+      </label>
 
-      <div>
-        <label class="block">Hobbies:</label>
-        <div *ngFor="let hobby of hobbies">
-          <input type="checkbox"
-                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                 name="{{hobby.hobbyName}}"
-                 formControlName="selectedHobby"
-                 (change)="onChange()"
-                 [(ngModel)]="hobby.isSelected">
-          <label class="font-medium text-gray-700 ml-2">{{hobby.hobbyName}}</label>
-        </div>
-      </div>
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700 text-lg ">Name of institute or school</span>
+        <mat-form-field class="w-full h-0"
+                        appearance="outline">
+          <input
+            type="text"
+            id="instituteName"
+            name="instituteName"
+            formControlName="instituteName"
+            matInput
+            placeholder="Enter Your institute or school Name">
+        </mat-form-field>
+      </label>
 
-      <div>
-        <label class="block">Gender:</label>
-        <div class="radio" *ngFor="let gender of genders">
-          <label>
-            <input
-              class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-              type="radio"
-              formControlName="gender"
-              [value]="gender">
-            {{ gender }}
-          </label>
-        </div>
-      </div>
 
-      <div>
-        <label class="block" for="address">Address: </label>
-        <input
-          class="relative block w-full appearance-none  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          name="address"
-          id="address"
-          formControlName="address"
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700 text-lg ">Education</span>
+        <mat-form-field class="w-full h-0" appearance="outline">
+          <mat-select
+            id="education"
+            formControlName='education'
+            placeholder="Enter Education"
+            name="education">
+            <mat-option *ngFor="let opttion of educationOptions"
+                        [value]="opttion">{{opttion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </label>
+
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700 text-lg ">Hobbies</span>
+        <ul>
+          <li *ngFor="let hobby of hobbies">
+            <mat-checkbox
+              name="{{hobby.hobbyName}}"
+              formControlName="selectedHobby"
+              (change)="onChange()"
+              [(ngModel)]="hobby.isSelected">
+              {{hobby.hobbyName}}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </label>
+
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700 text-lg ">Gender</span>
+        <mat-radio-group
+          formControlName="gender"
         >
-      </div>
+          <mat-radio-button
+            *ngFor="let gender of genders"
+            [value]="gender" value="auto">
+            {{ gender }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </label>
+
+      <label class="block">
+        <span class="block text-sm font-medium text-slate-700 text-lg ">Address</span>
+        <mat-form-field class="w-full h-0"
+                        appearance="outline">
+          <input
+            type="text"
+            name="address"
+            id="address"
+            formControlName="address"
+            matInput
+            placeholder="Enter Your Name">
+        </mat-form-field>
+      </label>
+
 
       <div class="grid grid-cols-2  gap-4">
-        <button class=""  [disabled]="!detailForms.valid" mat-raised-button color="primary" type="submit">Submit</button>
+        <button class="" [disabled]="!detailForms.valid" mat-raised-button color="primary" type="submit">Submit</button>
         <button class="" (click)="clearForm()" type="button" mat-raised-button color="warn">Clear Form</button>
       </div>
     </form>

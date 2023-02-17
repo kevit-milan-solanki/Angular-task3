@@ -13,6 +13,13 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
 import {NgxIntlTelInputModule} from "ngx-intl-tel-input";
 import { DetailComponent } from './detail-form/detail/detail.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatTableModule} from "@angular/material/table";
+import {MatCardModule} from "@angular/material/card";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -33,7 +40,14 @@ import { DetailComponent } from './detail-form/detail/detail.component';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    MatIconModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatTableModule,
+    MatCardModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
