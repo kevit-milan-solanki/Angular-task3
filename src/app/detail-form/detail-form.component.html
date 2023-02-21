@@ -1,9 +1,6 @@
 <div class="flex min-h-0 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-  <div class="w-full max-w-md space-y-8">
+  <div class="w-full max-w-md space-y-8 form">
     <h1>Detail Form</h1>
-
-<!--    <button (click)="fetchData()">Get Data</button>-->
-
 
     <form class="mt-8 space-y-6" (ngSubmit)="submitDetails()" [formGroup]="detailForms">
 
@@ -146,7 +143,8 @@
 
 
       <div class="grid grid-cols-2  gap-4">
-        <button class="" [disabled]="!detailForms.valid" mat-raised-button color="primary" type="submit">Submit</button>
+        <button *ngIf="!editForm" class="" [disabled]="!detailForms.valid" mat-raised-button color="primary" type="submit">Submit</button>
+        <button *ngIf="editForm" (click)="updateData()" class="" [disabled]="!detailForms.valid" mat-raised-button color="primary" type="button" >Save Data</button>
         <button class="" (click)="clearForm()" type="button" mat-raised-button color="warn">Clear Form</button>
       </div>
     </form>

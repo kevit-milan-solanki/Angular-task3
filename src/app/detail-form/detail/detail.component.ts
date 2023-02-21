@@ -1,45 +1,81 @@
-import {Component, OnInit} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  DoCheck,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 import {FormDetailService} from "../form-detail.service";
 import {Router} from "@angular/router";
 import {DetailDataStorageService} from "../../shaird/detailDataStorage.service";
-import {DetailDataModel} from "../detailData.model";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {DetailFormComponent} from "../detail-form.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit , OnChanges{
 
   constructor(private readonly formDetailService: FormDetailService,
               private readonly router: Router,
-              private DetailDataStorageService: DetailDataStorageService
+              private DetailDataStorageService: DetailDataStorageService,
+              private dialog: MatDialog,
+              private readonly toaster: ToastrService
   ) {
   }
-
-  Detail: DetailDataModel;
-
+@Input() Details = this.formDetailService.detailChange
+  Detail;
+  nodata;
   ngOnInit() {
+    this.loadeData();
+  }
 
-    this.DetailDataStorageService.fetch().subscribe()
-    // this.Detail = this.formDetailService.setDetail()
-    console.log(this.Detail)
+
+
+  loadeData(){
+    this.DetailDataStorageService.fetch().subscribe(res => {
+      this.Detail = res;
+      if (this.Detail == "") {
+        this.nodata = true;
+      } else {
+        this.nodata = false
+      }
+    })
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
   }
 
 
   logOut() {
     this.router.navigate(['login']);
-
   }
 
-  detail: any = this.formDetailService.Detail;
-  // name: string = this.detail.name;
-  // DateOfBirth = this.detail.date;
-  // email: string = this.formDetailService.UserEmail;
-  // mobileNumber: string = this.detail.mobileNumber.internationalNumber;
-  // instituteName: string = this.detail.instituteName;
-  // education: string = this.detail.education;
-  // Hobbies: string = this.formDetailService.hobby;
-  // gender: string = this.detail.gender;
-  // Address: string = this.detail.address;
+  AddData() {
+    const dilogConfig = new MatDialogConfig();
+    dilogConfig.width = "40%"
+    dilogConfig.height = "200%"
+    this.dialog.open(DetailFormComponent, dilogConfig);
+  }
+
+  deleteDetail(id) {
+    this.DetailDataStorageService.delete(id)
+    this.loadeData();
+    this.toaster.error("Data deleted", "Delete")
+  }
+
+  editDetail(id) {
+    this.DetailDataStorageService.getEditData(id)
+    const dilogConfig = new MatDialogConfig();
+    dilogConfig.width = "40%"
+    dilogConfig.height = "200%"
+    this.dialog.open(DetailFormComponent, dilogConfig);
+  }
 }

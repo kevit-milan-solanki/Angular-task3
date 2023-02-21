@@ -3,56 +3,122 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
-
+      <div class="flex gap-3">
+        <button (click)="logOut()" mat-raised-button color="warn">
+          <mat-icon>logout</mat-icon>
+          LogOut
+        </button>
+        <button (click)="AddData()" mat-raised-button color="primary">
+          <mat-icon>add</mat-icon>
+          Add Detail
+        </button>
+      </div>
     </div>
-    <div class="border-t border-gray-200">
+
+    <div class="w-full" *ngIf="nodata">
+      <h4 class="w-full text-center	">No Data Found</h4>
+    </div>
+
+    <div *ngIf="!nodata" class="border-t border-gray-200">
       <dl>
-<!--        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Name</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{name}}</dd>-->
-<!--        </div>-->
-<!--        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Email Id</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{email}}</dd>-->
-<!--        </div>-->
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let detailItem of Detail">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{detailItem.detail.name}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{detailItem.detail.email}}
+              </mat-panel-description>
+              <mat-panel-description>
+                {{detailItem.detail.mobileNumber.internationalNumber}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
 
-<!--        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Mobile Number</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{mobileNumber}}</dd>-->
-<!--        </div>-->
-<!--        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Date Of Birth</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{DateOfBirth | date : 'longDate'}}</dd>-->
-<!--        </div>-->
+            <div class="flex  gap-2">
+              <button (click)="editDetail(detailItem.id)" mat-raised-button color>
+                <mat-icon>create</mat-icon>
+                Edit
+              </button>
+              <button (click)="deleteDetail(detailItem.id)" mat-raised-button color="warn">
+                <mat-icon>delete_outline</mat-icon>
+                Delete
+              </button>
+            </div>
 
-<!--        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Institute Name</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{instituteName}}</dd>-->
-<!--        </div>-->
-<!--        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Education</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{education}}</dd>-->
-<!--        </div>-->
 
-<!--        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Gender</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{gender}}</dd>-->
-<!--        </div>-->
-<!--        <div *ngIf="Hobbies !=''" class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Hobbies</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{Hobbies}}</dd>-->
-<!--        </div>-->
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Name</dt>
+              <dd  class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.name}}</dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Email Id</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.email}}</dd>
+            </div>
 
-<!--        <div *ngIf="Address && Hobbies != ''" class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Address</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{Address}}</dd>-->
-<!--        </div>-->
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Mobile Number</dt>
+              <dd
+                class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.mobileNumber.internationalNumber}}</dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Date Of Birth</dt>
+              <dd
+                class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.date | date : 'longDate'}}</dd>
+            </div>
 
-<!--        <div *ngIf="Address && Hobbies ==''" class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">-->
-<!--          <dt class="text-sm font-medium text-gray-500">Address</dt>-->
-<!--          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{Address}}</dd>-->
-<!--        </div>-->
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Institute Name</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.instituteName}}</dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Education</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.education}}</dd>
+            </div>
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Gender</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.gender}}</dd>
+            </div>
+
+
+            <div *ngIf="detailItem.detail.selectedHobby"
+                 class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Hobbies</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                <mat-chip-listbox aria-label="Dog selection">
+                  <mat-chip *ngFor="let hobby of detailItem.hobby">
+                    {{hobby}}
+                  </mat-chip>
+                </mat-chip-listbox>
+              </dd>
+
+
+            </div>
+
+            <div *ngIf="detailItem.detail.address && detailItem.detail.selectedHobby != ''"
+                 class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Address</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.address}}</dd>
+            </div>
+
+            <div *ngIf="detailItem.detail.address && detailItem.selectedHobby ==''"
+                 class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Address</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{detailItem.detail.address}}</dd>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>
       </dl>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-</div>
+
+
+
+
+
+

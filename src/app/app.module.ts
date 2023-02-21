@@ -20,6 +20,13 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {HttpClientModule} from "@angular/common/http";
+import {MatExpansionModule} from "@angular/material/expansion";
+import { EditDetailComponent } from './detail-form/edit-detail/edit-detail.component';
+import {MatChipsModule} from "@angular/material/chips";
+import { DemoComponent } from './demo/demo.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ToastrModule} from "ngx-toastr";
+
 
 
 
@@ -29,7 +36,9 @@ import {HttpClientModule} from "@angular/common/http";
     AppComponent,
     LoginComponent,
     DetailFormComponent,
-    DetailComponent
+    DetailComponent,
+    EditDetailComponent,
+    DemoComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +56,18 @@ import {HttpClientModule} from "@angular/common/http";
     MatRadioModule,
     MatTableModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatDialogModule,
+    ToastrModule.forRoot({
+        timeOut: 3000,
+        progressBar: true
+      }
+    )
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[DetailFormComponent]
 })
 export class AppModule { }

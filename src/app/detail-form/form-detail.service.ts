@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
-import {DetailDataModel} from "./detailData.model";
-import {HttpClient} from "@angular/common/http";
-import {DetailDataStorageService} from "../shaird/detailDataStorage.service";
+
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +8,25 @@ import {DetailDataStorageService} from "../shaird/detailDataStorage.service";
 
 
 export class FormDetailService {
-
-  constructor(private httpClint: HttpClient,
-  ) {
-  }
-
   public UserEmail: string;
   public hobby: any;
+  detailChange = new Subject<any>()
 
-  Detail: DetailDataModel;
+  Detail;
 
-  setDetail() {
-    console.log(this.Detail)
+  formEditMode = false;
+
+  setDetail(detail) {
+    this.Detail = detail
+    this.detailChange.next(this.Detail)
   }
-  getData(res){
-    this.Detail= res
-    console.log(this.Detail)
+
+  getDetail() {
+    return this.Detail
   }
 
-
-
-
+  editDeteil(eDeteil) {
+    this.Detail = eDeteil
+    this.detailChange.next(this.Detail)
+  }
 }

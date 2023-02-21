@@ -2,22 +2,24 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormDetailService} from "../detail-form/form-detail.service";
+import {DetailDataStorageService} from "../shaird/detailDataStorage.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
-  loginForm!: FormGroup;
-  userEmail!: string;
-  password!: string;
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  isLogin: boolean = false;
+  userEmail: string;
 
-  constructor(private  router : Router,
+  constructor(private router: Router,
               private readonly userDetailService: FormDetailService,
+              private readonly toaster: ToastrService
   ) {
   }
-
 
   ngOnInit() {
     this.loginForm = new FormGroup<any>({
@@ -26,12 +28,13 @@ export class LoginComponent implements OnInit{
     })
   }
 
-  onSubmit(){
+  onSubmit() {
     const loginDetail = this.loginForm.value;
-    if (loginDetail.userEmail == '19it023.milan.solanki@vvpedulink.ac.in' && loginDetail.password == "1234") {
-      this.userDetailService.UserEmail = loginDetail.userEmail;
-      this.router.navigate(['./', 'detail-form']);
-    }
+    this.userDetailService.UserEmail = loginDetail.userEmail;
+    this.router.navigate(['./', 'detail']);
+    this.toaster.success('LogIn Successful', 'Success');
+    this.isLogin = true;
   }
+
 
 }
