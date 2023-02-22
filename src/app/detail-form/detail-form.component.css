@@ -6,56 +6,43 @@ input.ng-invalid.ng-touched {
 select.ng-invalid.ng-touched {
   border: 1px solid red;
 }
-
-
 .error {
   color: red;
 }
 
-.Lable::after {
-  color: red;
-  border-style: none;
-  content: '*';
+:host::ng-deep ngx-intl-tel-input.iti {
+  width: 100% !important;
 }
 
-::ng-deep ngx-intl-tel-input.iti {
-  width: 100% !important;
+ngx-intl-tel-input:hover{
+  border: 1px solid black;
+}
+ngx-intl-tel-input{
+  border: 1px solid #9E9E9E;
 }
 
 ngx-intl-tel-input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
-/*:host::ng-deep.mat-mdc-text-field-wrapper  {*/
-/*  height: 40px;*/
-/*}*/
 
-/*::ng-deep.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{*/
-/*  padding-top: 9px;*/
-/*}*/
-
-/*:host::ng-deep.mat-mdc-form-field-flex{*/
-/*  height: 100%;*/
-/*}*/
-
-/*:host::ng-deep.mat-mdc-checkbox.mat-accent{*/
-/*  --mdc-checkbox-selected-icon-color: #46c7f1;*/
-/*  --mdc-checkbox-selected-hover-icon-color:#46c7f1;*/
-/*  --mdc-checkbox-selected-focus-icon-color:#46c7f1;*/
-/*  --mdc-checkbox-selected-pressed-icon-color:#46c7f1;*/
-/*}*/
-/*:host::ng-deep.mat-mdc-radio-button.mat-accent{*/
-/*  --mdc-radio-selected-icon-color:#46c7f1;*/
-/*  --mdc-radio-selected-hover-icon-color:#46c7f1;*/
-/*  --mdc-radio-selected-focus-icon-color:#46c7f1;*/
-/*  --mdc-radio-selected-pressed-icon-color:#46c7f1;*/
-/*  --mat-mdc-radio-checked-ripple-color:#46c7f1''*/
-/*}*/
-
-
-.mat-mdc-form-field-flex{
+:host::ng-deep.mat-mdc-text-field-wrapper {
   height: 40px;
 }
 
-.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{
+::ng-deep.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
   padding-top: 9px;
 }
+
+:host::ng-deep.mat-mdc-form-field-flex {
+  height: 100%;
+}
+:host::ng-deep.iti{
+  width: 100%;
+}
+:host::ng-deep.iti--allow-dropdown input, .iti--allow-dropdown input[type=tel], .iti--allow-dropdown input[type=text], .iti--separate-dial-code input, .iti--separate-dial-code input[type=tel], .iti--separate-dial-code input[type=text]{
+  width: 100%;
+  outline: none;
+}
+
+
+

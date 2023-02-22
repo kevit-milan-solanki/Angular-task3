@@ -7,14 +7,14 @@ import {LoginComponent} from "./login/login.component";
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private loginCmponent: LoginComponent,
-              private route: Router) {
+  constructor(
+    private route: Router) {
   }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-     return true
+    return this.route.createUrlTree(['/login'])
   }
 
 }

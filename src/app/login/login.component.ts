@@ -12,12 +12,12 @@ import {ToastrService} from "ngx-toastr";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  isLogin: boolean = false;
   userEmail: string;
 
   constructor(private router: Router,
               private readonly userDetailService: FormDetailService,
-              private readonly toaster: ToastrService
+              private readonly toaster: ToastrService,
+              private readonly  DetailDataStorageService:DetailDataStorageService
   ) {
   }
 
@@ -31,10 +31,15 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const loginDetail = this.loginForm.value;
     this.userDetailService.UserEmail = loginDetail.userEmail;
-    this.router.navigate(['./', 'detail']);
-    this.toaster.success('LogIn Successful', 'Success');
-    this.isLogin = true;
-  }
+    if (loginDetail.userEmail == '19it023.milan.solanki@vvpedulink.ac.in' && loginDetail.password == "1234") {
+      this.router.navigate(['./', 'detail']);
+      this.toaster.success('LogIn Successful', 'Success');
+    }
+    else {
+      this.toaster.error('Something is wrong!')
+      this.loginForm.reset()
+    }
 
+  }
 
 }

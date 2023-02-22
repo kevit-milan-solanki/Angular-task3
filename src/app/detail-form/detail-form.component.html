@@ -1,11 +1,13 @@
-<div class="flex min-h-0 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-  <div class="w-full max-w-md space-y-8 form">
-    <h1>Detail Form</h1>
-
-    <form class="mt-8 space-y-6" (ngSubmit)="submitDetails()" [formGroup]="detailForms">
-
+<header class="sticky top-0 z-30 w-full px-2 py-4 bg-white sm:px-4">
+  <div class="flex items-center justify-between mx-auto max-w-7xl">
+    <span class="text-2xl font-extrabold">Detail Form</span>
+  </div>
+</header>
+<div class="flex  items-center justify-center px-4  sm:px-6 lg:px-8">
+  <div class="w-full -mt-8">
+    <form class="mt-8 space-y-6 mb-5 -mt-1" (ngSubmit)="submitDetails()" [formGroup]="detailForms">
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700 text-lg ">Name:</span>
+        <span class="block  font-medium text-slate-700 text-base">Name<span class="text-red-600">*</span></span>
         <div class="">
           <mat-form-field class="w-full h-0"
                           appearance="outline">
@@ -21,7 +23,7 @@
       </label>
 
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700 text-lg ">Email ID</span>
+        <span class="block  font-medium text-slate-700 text-base ">Email ID<span class="text-red-600">*</span></span>
         <mat-form-field class="w-full h-0"
                         appearance="outline">
           <input
@@ -35,26 +37,25 @@
       </label>
 
       <div>
-        <label>Mobile NUmber</label>
-        <ngx-intl-tel-input
-          class="relative block w-full appearance-none h-10  rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm w-full"
-          [preferredCountries]="[CountryISO.India]"
-          [enableAutoCountrySelect]="true"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-          [selectedCountryISO]="CountryISO.India"
-          type="trxt"
-          id="phone"
-          name="mobileNumber" formControlName="mobileNumber"
-        >
-          <input>
-        </ngx-intl-tel-input>
+        <label> <span class="block  font-medium text-slate-700 text-base ">Mobile Number<span
+          class="text-red-600">*</span></span>
+          <ngx-intl-tel-input
+            class="relative block w-full appearance-none h-10  rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500  sm:text-sm w-full"
+            [preferredCountries]="[CountryISO.India]"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+            [selectedCountryISO]="CountryISO.India"
+            type="trxt"
+            id="phone"
+            name="mobileNumber" formControlName="mobileNumber"
+          >
+          </ngx-intl-tel-input>
+        </label>
       </div>
-
-
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700">Date Of Birth:</span>
+        <span class="block text-base font-medium text-slate-700">Date Of Birth<span class="text-red-600">*</span></span>
         <mat-form-field
           class="w-full h-0"
           appearance="outline">
@@ -66,11 +67,10 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-
       </label>
-
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700 text-lg ">Name of institute or school</span>
+        <span class="block  font-medium text-slate-700 text-base ">Name of institute or school<span
+          class="text-red-600">*</span></span>
         <mat-form-field class="w-full h-0"
                         appearance="outline">
           <input
@@ -83,9 +83,8 @@
         </mat-form-field>
       </label>
 
-
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700 text-lg ">Education</span>
+        <span class="block  font-medium text-slate-700 text-base ">Education<span class="text-red-600">*</span></span>
         <mat-form-field class="w-full h-0" appearance="outline">
           <mat-select
             id="education"
@@ -100,7 +99,7 @@
       </label>
 
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700 text-lg ">Hobbies</span>
+        <span class="block  font-medium text-slate-700 text-base ">Hobbies</span>
         <ul>
           <li *ngFor="let hobby of hobbies">
             <mat-checkbox
@@ -115,7 +114,7 @@
       </label>
 
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700 text-lg ">Gender</span>
+        <span class="block  font-medium text-slate-700 text-base ">Gender<span class="text-red-600">*</span></span>
         <mat-radio-group
           formControlName="gender"
         >
@@ -128,7 +127,7 @@
       </label>
 
       <label class="block">
-        <span class="block text-sm font-medium text-slate-700 text-lg ">Address</span>
+        <span class="block  font-medium text-slate-700 text-base ">Address</span>
         <mat-form-field class="w-full h-0"
                         appearance="outline">
           <input
@@ -141,13 +140,18 @@
         </mat-form-field>
       </label>
 
-
-      <div class="grid grid-cols-2  gap-4">
-        <button *ngIf="!editForm" class="" [disabled]="!detailForms.valid" mat-raised-button color="primary" type="submit">Submit</button>
-        <button *ngIf="editForm" (click)="updateData()" class="" [disabled]="!detailForms.valid" mat-raised-button color="primary" type="button" >Save Data</button>
-        <button class="" (click)="clearForm()" type="button" mat-raised-button color="warn">Clear Form</button>
+      <div class="flex  gap-4 justify-end">
+        <button class="w-full sm:w-2/6" (click)="clearForm()" type="button" mat-raised-button color="warn">Clear Form
+        </button>
+        <button *ngIf="!editForm" class="w-full sm:w-2/6" [disabled]="!detailForms.valid" mat-raised-button
+                color="primary"
+                type="submit">Submit
+        </button>
+        <button *ngIf="editForm" (click)="updateData()" class="w-full sm:w-2/6" [disabled]="!detailForms.valid"
+                mat-raised-button
+                color="primary" type="button">Save Data
+        </button>
       </div>
     </form>
-
   </div>
 </div>

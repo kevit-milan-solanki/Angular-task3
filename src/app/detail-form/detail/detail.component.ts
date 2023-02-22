@@ -1,81 +1,90 @@
 import {
-  AfterViewChecked,
-  AfterViewInit,
   Component,
-  DoCheck,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges
+  OnDestroy,
+  OnInit, ViewChild,
+
 } from '@angular/core';
 import {FormDetailService} from "../form-detail.service";
 import {Router} from "@angular/router";
 import {DetailDataStorageService} from "../../shaird/detailDataStorage.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {DetailFormComponent} from "../detail-form.component";
-import {ToastrService} from "ngx-toastr";
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {ConformComponent} from "../../shaird/conform/conform.component";
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  styleUrls: ['./detail.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
-export class DetailComponent implements OnInit , OnChanges{
+export class DetailComponent implements OnInit, OnDestroy {
+  columnsToDisplay = ['name', 'email', "education"];
+  expandedElement;
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private readonly formDetailService: FormDetailService,
               private readonly router: Router,
               private DetailDataStorageService: DetailDataStorageService,
               private dialog: MatDialog,
-              private readonly toaster: ToastrService
   ) {
   }
-@Input() Details = this.formDetailService.detailChange
-  Detail;
   nodata;
+  dataSource
   ngOnInit() {
+    this.DetailDataStorageService.fetch()
     this.loadeData();
   }
 
-
-
-  loadeData(){
-    this.DetailDataStorageService.fetch().subscribe(res => {
-      this.Detail = res;
-      if (this.Detail == "") {
-        this.nodata = true;
-      } else {
-        this.nodata = false
-      }
+  loadeData() {
+    return this.formDetailService.detailChange.subscribe(res => {
+      this.dataSource = new MatTableDataSource<any>(res)
+      this.dataSource.paginator = this.paginator;
     })
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-  }
-
 
   logOut() {
     this.router.navigate(['login']);
   }
-
-  AddData() {
+  OnAddData() {
     const dilogConfig = new MatDialogConfig();
-    dilogConfig.width = "40%"
-    dilogConfig.height = "200%"
+    dilogConfig.width = "500px"
+    dilogConfig.height = "85%"
     this.dialog.open(DetailFormComponent, dilogConfig);
   }
 
-  deleteDetail(id) {
-    this.DetailDataStorageService.delete(id)
-    this.loadeData();
-    this.toaster.error("Data deleted", "Delete")
+  deleteDetail(id , event) {
+    event.stopPropagation()
+    this.DetailDataStorageService.getEditData(id)
+    this.openDialog()
+    this.formDetailService.getID(id)
   }
 
-  editDetail(id) {
+  editDetail(id, event) {
+    event.stopPropagation()
     this.DetailDataStorageService.getEditData(id)
     const dilogConfig = new MatDialogConfig();
-    dilogConfig.width = "40%"
-    dilogConfig.height = "200%"
+    dilogConfig.width = "500px"
+    dilogConfig.height = "85%"
     this.dialog.open(DetailFormComponent, dilogConfig);
   }
+
+  openDialog(): void {
+    this.dialog.open(ConformComponent, {
+      width: '250px',
+    });
+  }
+
+  ngOnDestroy() {
+  }
 }
+
